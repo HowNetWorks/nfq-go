@@ -14,4 +14,4 @@ Run the image, exposing the bad server on localhost:8080:
 docker run --rm --cap-add NET_ADMIN -p 8080:8080 bad-http-server
 ```
 
-The `NET_ADMIN` capability needs to be added for the initial iptables commands in `[entrypoint.sh](./entrypoint.sh)`.
+The `NET_ADMIN` capability needs to be added for the initial iptables commands in [`entrypoint.sh`](./entrypoint.sh).
