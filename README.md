@@ -12,7 +12,7 @@ nfq-go is a Go library that wraps libnetfilter_queue. Its aims are:
 import nfq "github.com/hownetworks/nfq-go"
 ```
 
-### New
+### Create
 
 ```go
 queue, err := nfq.New(0, func(pkt nfq.Packet) {
@@ -22,28 +22,30 @@ queue, err := nfq.New(0, func(pkt nfq.Packet) {
 
 ### Give a Verdict
 
-`NF_ACCEPT`
+You should give every packet a verdict. Do this by calling one of the methods outlined below. Note that giving a verdict more than once for a single packet produces an error.
+
+Let the packet pass the filter with a `NF_ACCEPT` verdict:
 
 ```go
 err := pkt.Accept()
 ```
 
-`NF_DROP`
+Drop the packet with `NF_DROP`:
 
 ```go
 err := pkt.Drop()
 ```
 
-`NF_REPEAT`
+Pass the packet through the filter again with `NF_REPEAT`:
 
 ```go
 err := pkt.Repeat()
 ```
 
-`NF_QUEUE` to queue 5
+Send the packet to some (other) queue with `NF_QUEUE` - this also requires the queue number:
 
 ```go
-err := pkt.Queue(x)
+err := pkt.Queue(5)
 ```
 
 ### Modifying Packets
