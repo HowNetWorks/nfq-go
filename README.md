@@ -12,7 +12,9 @@ nfq-go is a Go library that wraps libnetfilter_queue. Its aims are:
 import nfq "github.com/hownetworks/nfq-go"
 ```
 
-### Create
+### Create a New Queue Handle
+
+To creaate a new queue handle call `New` with the queue number (`0` in the following example) and a callback for receiving packets:
 
 ```go
 queue, err := nfq.New(0, func(pkt nfq.Packet) {
@@ -59,6 +61,8 @@ err := pkt.WithData(newData).WithMark(1234).Queue(5)
 ```
 
 ### Close
+
+At any point you can close the queue handle:
 
 ```go
 queue.Close()
