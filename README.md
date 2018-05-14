@@ -1,6 +1,8 @@
 # nfq-go
 
-nfq-go is a Go library that wraps libnetfilter_queue.
+nfq-go is a Go library that wraps libnetfilter_queue. Its aims are:
+ * to contain a minimal amount of C code
+ * to be thread-safe
 
 ## Usage
 
