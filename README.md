@@ -6,6 +6,8 @@ nfq-go is a Go library that wraps libnetfilter_queue. Its aims are:
 
 ## Usage
 
+### Import
+
 ```go
 import nfq "github.com/hownetworks/nfq-go"
 ```
