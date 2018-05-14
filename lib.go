@@ -25,22 +25,31 @@ const (
 )
 
 var (
-	registry sync.Map
+	registry map[*C.struct_nfq_q_handle]*NFQ
+	lock     sync.RWMutex
 )
 
+func init() {
+	registry = make(map[*C.struct_nfq_q_handle]*NFQ)
+}
+
 func register(qh *C.struct_nfq_q_handle, nfq *NFQ) {
-	registry.Store(qh, nfq)
+	lock.Lock()
+	registry[qh] = nfq
+	lock.Unlock()
 }
 
 func unregister(qh *C.struct_nfq_q_handle) {
-	registry.Delete(qh)
+	lock.Lock()
+	delete(registry, qh)
+	lock.Unlock()
 }
 
 func get(qh *C.struct_nfq_q_handle) *NFQ {
-	if nfq, ok := registry.Load(qh); ok {
-		return nfq.(*NFQ)
-	}
-	return nil
+	lock.RLock()
+	nfq := registry[qh]
+	lock.RUnlock()
+	return nfq
 }
 
 // Packet ...
